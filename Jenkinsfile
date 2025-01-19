@@ -52,7 +52,7 @@ pipeline {
      stage('Releasing') {
      steps{
          script {
-			docker.withRegistry("https://" + REPOSITORY_URI, registryCredential2) {
+			docker.withRegistry("https://" + REPOSITORY_URI, registryCredential) {
                     	dockerImage.push()
             }
          }
