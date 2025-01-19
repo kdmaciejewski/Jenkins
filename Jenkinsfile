@@ -13,6 +13,8 @@ pipeline {
         //Do not edit REPOSITORY_URI.
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
 	    registryCredential = "Pilot"
+        registryCredential2 = "Pilot2"
+
 	    JOB_NAME = "PilotPipeline"
 	    TEST_CONTAINER_NAME = "${JOB_NAME}-test-server"
 
@@ -39,7 +41,7 @@ pipeline {
     stage('Releasing') {
      steps{  
          script {
-			docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}:" + registryCredential) {
+			docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}:" + registryCredential2) {
                     	dockerImage.push()
             }
          }
