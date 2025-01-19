@@ -51,18 +51,12 @@ pipeline {
     // Update task definition and service running in ECS cluster to deploy
     stage('Deploy') {
      steps{
-//             withAWS(credentials: registryCredential, region: "${AWS_DEFAULT_REGION}") {
-//                 script {
-// 			sh "chmod +x -R ${env.WORKSPACE}"
-// 			sh './script.sh'
-//                 }
-//             }
-             withCredentials([aws(credentialsId: "Pilot")]) {
-                sh '''
-                   #!/bin/bash
-                   aws ...
-                   '''.stripIndent().stripLeading()
-             }
+            withAWS(credentials: registryCredential, region: "${AWS_DEFAULT_REGION}") {
+                script {
+			sh "chmod +x -R ${env.WORKSPACE}"
+			sh './script.sh'
+                }
+            }
          }
        }
      }
