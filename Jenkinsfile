@@ -11,7 +11,9 @@ pipeline {
         //Do not edit the variable IMAGE_TAG. It uses the Jenkins job build ID as a tag for the new image.
         IMAGE_TAG="${env.BUILD_ID}"
         //Do not edit REPOSITORY_URI.
-        REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
+        REPOSITORY_URI = "160227654080.dkr.ecr.us-east-1.amazonaws.com/pilot"
+
+//         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
 	    registryCredential = "Pilot"
         registryCredential2 = "Pilot2"
 
@@ -38,10 +40,19 @@ pipeline {
     }
 
     // Uploading Docker image into AWS ECR
-    stage('Releasing') {
-     steps{  
+//     stage('Releasing') {
+//      steps{
+//          script {
+// 			docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}:" + registryCredential2) {
+//                     	dockerImage.push()
+//             }
+//          }
+//        }
+//      }
+     stage('Releasing') {
+     steps{
          script {
-			docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}:" + registryCredential2) {
+			docker.withRegistry("https://" + REPOSITORY_URI, registryCredential) {
                     	dockerImage.push()
             }
          }
