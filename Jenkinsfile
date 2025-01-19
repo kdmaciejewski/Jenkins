@@ -15,6 +15,8 @@ pipeline {
 	    registryCredential = "Pilot"
 	    JOB_NAME = "PilotPipeline"
 	    TEST_CONTAINER_NAME = "${JOB_NAME}-test-server"
+        AWS_ACCESS_KEY_ID = 'ASIASKTSP7HAFHQQCEVK'
+        AWS_SECRET_ACCESS_KEY = 'WSNmjUKiyGerzWL1f64G31rc2lDNEpMWduZpRImF'
     
 }
    
