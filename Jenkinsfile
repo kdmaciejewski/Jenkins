@@ -36,27 +36,27 @@ pipeline {
 
     stage('Releasing') {
      steps{
-        echo "Starting Releasing stage"
+        echo "Starting Releasing stage-------------------------------------------"
          script {
-			docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}:" + registryCredential) {
+			docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}:" + awsCredential) {
                     	dockerImage.push()
             }
          }
-         echo "Finished Releasing stage"
+         echo "Finished Releasing stage-------------------------------------------"
        }
      }
 
     // Update task definition and service running in ECS cluster to deploy
     stage('Deploy') {
      steps{
-            echo "Starting Deploy stage"
+            echo "Starting Deploy stage-------------------------------------------"
             withAWS(credentials: awsCredential, region: "${AWS_DEFAULT_REGION}") {
                 script {
 			sh "chmod +x -R ${env.WORKSPACE}"
 			sh './script.sh'
                 }
             }
-            echo "Finished Deploy stage"
+            echo "Finished Deploy stage-------------------------------------------"
          }
        }
      }
